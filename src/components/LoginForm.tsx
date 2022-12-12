@@ -3,21 +3,25 @@ import { useCallback, useState } from "react";
 import Grid from '@mui/material/Unstable_Grid2';
 import { signInWithEmailAndPassword } from "@firebase/auth";
 import { auth } from "../main";
+import { useNavigate } from "react-router-dom";
 
 export const LoginForm = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const navigate = useNavigate();
 
     const handleLogin = useCallback(async () => {
         const user = await signInWithEmailAndPassword(auth, email, password);
         if(user) {
-            console.log(user);
+            // console.log(user);
+            console.log(auth.currentUser);
+            navigate('/');
         }
     }, [email, password]);
 
     const handleChangeEmail = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.currentTarget.value);
-    }, [email])
+    }, [email]);
 
     const handleChangePassword = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.currentTarget.value);

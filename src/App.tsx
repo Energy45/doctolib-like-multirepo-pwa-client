@@ -2,11 +2,13 @@ import './App.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { LoginForm } from './components/LoginForm'
 import { RegisterForm } from './components/RegisterForm'
+import { Dashboard } from './components/Dashboard'
+import { Appointments } from './components/Appointments'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <></>
+    element: <Dashboard/>
   },
   {
     path: '/register',
@@ -15,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <LoginForm/>
+  },
+  {
+    path: '/appointments',
+    element: <Appointments/>
   }
 ])
 
