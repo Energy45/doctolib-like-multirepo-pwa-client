@@ -34,10 +34,10 @@ export const Dashboard = () => {
         fetchData();
     }, []);
 
-    const handleClickRDV = async (event: any, id: number) => {
+    const handleClickRDV = async (event: any, pract: any) => {
         const date = new Date();
         await setDoc(doc(collection(db, 'rdv')), {
-            idPratitioner: id,
+            idPratitioner: pract.uid,
             idClient: auth.currentUser?.uid,
             date: date.toISOString(),
         });
@@ -54,7 +54,7 @@ export const Dashboard = () => {
                                     <p>Name : {practitioner.name}</p>
                                     <p>ID : {practitioner.idPratitioner}</p>
                                     <DatePicker selected={date} onChange={(date: Date) => setDate(date)}/>
-                                    <button onClick={(event: any) => handleClickRDV(event, practitioner.idPratitioner)}>Prendre rdv</button>
+                                    <button onClick={(event: any) => handleClickRDV(event, practitioner)}>Prendre rdv</button>
                                 </div>
                     })}
                 </div>

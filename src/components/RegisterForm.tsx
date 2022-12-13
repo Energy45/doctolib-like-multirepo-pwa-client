@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 export const RegisterForm = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const [idPractitioner, setIdPractitioner] = useState<string>("");
 
     const navigate = useNavigate();
 
@@ -20,16 +19,15 @@ export const RegisterForm = () => {
             //Display email exists
         } else {
             const user = await createUserWithEmailAndPassword(auth, email, password);
-            const userCreated = await addDoc(collection(db, 'users_practitioners'), {
+            const userCreated = await addDoc(collection(db, 'users_clients'), {
                 uid: user.user.uid,
                 email: user.user.email,
-                idPratitioner: idPractitioner,
             });
             if(userCreated) {
                 navigate('/login');
             }
         }
-    }, [email, password, idPractitioner])
+    }, [email, password])
 
     const handleChangeEmail = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.currentTarget.value);
@@ -38,10 +36,6 @@ export const RegisterForm = () => {
     const handleChangePassword = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.currentTarget.value);
     }, [password])
-
-    const handleChangePractitioner = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-        setIdPractitioner(event.currentTarget.value);
-    }, [idPractitioner])
 
     return (
         <div>
@@ -61,14 +55,6 @@ export const RegisterForm = () => {
                         autoComplete="current-password"
                         value={password}
                         onChange={handleChangePassword}
-                    />
-                </Grid>
-                <Grid xs={12}>
-                    <TextField
-                        label="Id practitioner"
-                        type="text"
-                        value={idPractitioner}
-                        onChange={handleChangePractitioner}
                     />
                 </Grid>
                 <Grid xs={12}>
